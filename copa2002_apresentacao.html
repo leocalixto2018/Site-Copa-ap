@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copa do Mundo 2002 — Apresentação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #D4A017;
+    --gold-light: #F5C842;
+    --green: #009C3B;
+    --blue: #003087;
+    --red: #C8102E;
+    --dark: #0A0A0A;
+    --mid: #1A1A2E;
+    --surface: #111827;
+    --surface2: #1E2A3A;
+    --text: #F0EDE6;
+    --muted: #8A9AB5;
+    --accent: #F5C842;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+  }
+
+  /* ─── SLIDES CONTAINER ─── */
+  .slides {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 4rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(30px);
+    overflow: hidden;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .slide.exit-up {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  /* ─── NAVIGATION ─── */
+  .nav-bar {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(15,15,25,0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(212,160,23,0.25);
+    border-radius: 100px;
+    padding: 0.6rem 1.25rem;
+  }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-btn:hover { color: var(--gold-light); background: rgba(212,160,23,0.1); }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+  .nav-counter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    color: var(--gold-light);
+    min-width: 60px;
+    text-align: center;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .dot.active {
+    background: var(--gold-light);
+    width: 18px;
+    border-radius: 3px;
+  }
+
+  .slide-label {
+    position: fixed;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(212,160,23,0.5);
+    z-index: 200;
+  }
+
+  /* ─── SLIDE 1: CAPA ─── */
+  #slide-1 {
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, #0d2b6b 0%, #0A0A0A 70%);
+  }
+
+  #slide-1::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.015) 59px, rgba(255,255,255,0.015) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.015) 59px, rgba(255,255,255,0.015) 60px);
+    pointer-events: none;
+  }
+
+  .cover-layout {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .cover-left {
+    flex: 1;
+    text-align: left;
+  }
+
+  .cover-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+
+  .cover-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 10vw, 9rem);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+  }
+  .cover-title span { color: var(--gold-light); }
+
+  .cover-sub {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+    line-height: 1.6;
+    max-width: 440px;
+  }
+
+  .cover-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .cstat { }
+  .cstat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .cstat-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  .cover-globe {
+    width: 320px;
+    height: 320px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #1a5c2a, #003087 60%, #000823);
+    border: 2px solid rgba(212,160,23,0.35);
+    box-shadow: 0 0 80px rgba(0,48,135,0.5), inset 0 0 40px rgba(0,0,0,0.5);
+    position: relative;
+    animation: rotate 20s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cover-globe span {
+    font-size: 6rem;
+    animation: counter-rotate 20s linear infinite;
+  }
+
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes counter-rotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+
+  /* ─── SHARED SLIDE LAYOUT ─── */
+  .slide-inner {
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .slide-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .slide-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+
+  /* ─── SLIDE 2: FINAL ─── */
+  #slide-2 {
+    background: radial-gradient(ellipse 60% 70% at 50% 50%, #0a1f50 0%, var(--dark) 70%);
+  }
+
+  .final-card {
+    background: linear-gradient(135deg, #0d2b6b 0%, #1a1a2e 100%);
+    border: 1px solid rgba(212,160,23,0.35);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .final-card::before {
+    content: 'FINAL';
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 8rem;
+    color: rgba(255,255,255,0.025);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .final-teams {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .team-block { flex: 1; min-width: 120px; }
+  .team-flag { font-size: 4rem; margin-bottom: 0.5rem; }
+  .team-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.05em; }
+  .team-role { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  .score-block { text-align: center; }
+  .score-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    color: var(--gold-light);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .score-sub { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  .goal-times {
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .goal-badge {
+    background: rgba(212,160,23,0.12);
+    border: 1px solid rgba(212,160,23,0.3);
+    border-radius: 100px;
+    padding: 4px 18px;
+    font-size: 0.82rem;
+    color: var(--gold-light);
+  }
+
+  .podium-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .podium-card {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  .podium-card.gold { border-color: rgba(212,160,23,0.5); background: linear-gradient(160deg, rgba(212,160,23,0.1) 0%, var(--surface) 60%); }
+  .podium-card.silver { border-color: rgba(180,180,180,0.35); }
+  .podium-card.bronze { border-color: rgba(176,120,79,0.35); }
+
+  .place-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; line-height: 1; }
+  .gold .place-num { color: var(--gold-light); }
+  .silver .place-num { color: #B4B4B4; }
+  .bronze .place-num { color: #C07840; }
+
+  .podium-flag { font-size: 2rem; margin: 0.4rem 0; }
+  .podium-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.05em; }
+  .podium-detail { font-size: 0.7rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.5; }
+
+  /* ─── SLIDE 3: ARTILHEIROS ─── */
+  #slide-3 {
+    background: linear-gradient(160deg, #0A0A0A 0%, #0d1a0f 100%);
+    align-items: flex-start;
+  }
+
+  .scorer-list { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1rem; }
+
+  .scorer-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .scorer-row.top { background: linear-gradient(90deg, rgba(212,160,23,0.12) 0%, var(--surface) 40%); border-color: rgba(212,160,23,0.3); }
+
+  .scorer-rank { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--muted); min-width: 24px; }
+  .scorer-flag { font-size: 1.5rem; }
+  .scorer-name { flex: 1; font-weight: 500; font-size: 0.95rem; }
+  .scorer-country { font-size: 0.72rem; color: var(--muted); }
+  .scorer-bar-wrap { flex: 2; display: flex; align-items: center; gap: 0.75rem; }
+  .scorer-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+  .scorer-bar { height: 100%; border-radius: 3px; background: var(--gold); transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0%; }
+  .top .scorer-bar { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+  .scorer-goals { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--gold-light); min-width: 30px; text-align: right; }
+
+  /* ─── SLIDE 4: CAMINHO ─── */
+  #slide-4 {
+    background: var(--dark);
+  }
+
+  .bracket {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .bracket-round { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+  .bracket-round-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .bracket-match {
+    background: var(--surface2);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.82rem;
+  }
+
+  .bracket-team {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    gap: 6px;
+  }
+  .bracket-team + .bracket-team { border-top: 1px solid rgba(255,255,255,0.06); }
+  .bracket-team.winner { color: var(--gold-light); font-weight: 500; }
+  .bracket-team.loser { color: var(--muted); }
+  .bt-name { flex: 1; }
+  .bt-score { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; }
+
+  .bracket-connector { width: 28px; display: flex; align-items: center; justify-content: center; color: rgba(212,160,23,0.4); font-size: 1.1rem; }
+
+  .final-match .bracket-match { border-color: rgba(212,160,23,0.5); background: linear-gradient(160deg, rgba(212,160,23,0.1), var(--surface2)); }
+
+  .knockout-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 1.5rem; }
+  .knockout-table th { padding: 8px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); color: var(--muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 400; }
+  .knockout-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .knockout-table tr:last-child td { border-bottom: none; }
+  .fase-label { color: var(--muted); font-size: 0.75rem; }
+  .placar-final { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--gold-light); text-align: right; }
+  .placar-normal { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; text-align: right; }
+
+  /* ─── SLIDE 5: GRUPOS ─── */
+  #slide-5 {
+    background: var(--dark);
+    justify-content: flex-start;
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+  }
+
+  #slide-5 .slide-title { margin-bottom: 0.75rem; font-size: 2.5rem; }
+
+  .groups-filter {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .filter-btn {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn:hover { border-color: var(--gold); color: var(--gold-light); }
+  .filter-btn.active { background: var(--gold); border-color: var(--gold); color: #000; font-weight: 500; }
+
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  .group-card {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .group-header {
+    background: var(--surface2);
+    padding: 0.4rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .group-letter { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--gold-light); line-height: 1; }
+  .group-subtext { font-size: 0.52rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .group-teams { padding: 0.1rem 0; }
+  .group-team {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.72rem;
+  }
+  .group-team.qualified { border-left: 2px solid var(--green); }
+  .group-team .gflag { font-size: 0.9rem; }
+  .group-team .gname { flex: 1; }
+  .group-team .gconf { font-size: 0.55rem; color: var(--muted); }
+
+  /* ─── SLIDE 6: NÚMEROS ─── */
+  #slide-6 {
+    background: var(--dark);
+    align-items: flex-start;
+  }
+
+  .stats-mosaic {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .stat-tile {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 1.5rem 1.25rem;
+  }
+  .stat-big { grid-row: span 2; display: flex; flex-direction: column; justify-content: center; }
+
+  .stat-tile-icon { font-size: 1.75rem; margin-bottom: 0.6rem; opacity: 0.6; }
+  .stat-tile-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1; color: var(--gold-light); }
+  .stat-big .stat-tile-num { font-size: 4.5rem; }
+  .stat-tile-unit { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .stat-tile-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.4rem; }
+
+  /* ─── SLIDE 7: CURIOSIDADES ─── */
+  #slide-7 {
+    background: linear-gradient(160deg, var(--dark) 0%, #0a1420 100%);
+    align-items: flex-start;
+  }
+
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .fact-card {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 1.25rem;
+    display: flex;
+    gap: 0.9rem;
+  }
+
+  .fact-icon { font-size: 1.75rem; flex-shrink: 0; }
+  .fact-title { font-weight: 500; margin-bottom: 0.35rem; font-size: 0.88rem; }
+  .fact-text { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── SLIDE 8: ENCERRAMENTO ─── */
+  #slide-8 {
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, #0d2b6b 0%, #0A0A0A 70%);
+    text-align: center;
+  }
+
+  .closing-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+  }
+  .closing-title span { color: var(--gold-light); }
+  .closing-stars {
+    font-size: 2rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin: 1.5rem 0;
+  }
+  .closing-sub {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+  .closing-trivia {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .ct-item {
+    background: var(--surface);
+    border: 1px solid rgba(212,160,23,0.25);
+    border-radius: 14px;
+    padding: 1.25rem 1.75rem;
+    text-align: center;
+    min-width: 150px;
+  }
+  .ct-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--gold-light); line-height: 1; }
+  .ct-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  /* Progress bar */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--gold), var(--gold-light));
+    transition: width 0.4s ease;
+    z-index: 300;
+  }
+
+  /* Section indicator */
+  .section-titles {
+    position: fixed;
+    top: 1.5rem;
+    left: 2rem;
+    z-index: 200;
+  }
+  .section-name {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(212,160,23,0.5);
+  }
+
+  /* Keyboard hint */
+  .key-hint {
+    position: fixed;
+    bottom: 5.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.18);
+    z-index: 199;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<div class="section-titles">
+  <div class="section-name" id="section-name">Apresentação</div>
+</div>
+
+<div class="key-hint">← → ou clique nas setas para navegar · F para tela cheia</div>
+
+<!-- SLIDES -->
+<div class="slides" id="slides">
+
+  <!-- 1: CAPA -->
+  <div class="slide active" id="slide-1">
+    <div class="cover-layout">
+      <div class="cover-left">
+        <p class="cover-eyebrow">17ª Edição · Coreia do Sul & Japão</p>
+        <h1 class="cover-title">Copa do<br><span>Mundo</span><br>2002</h1>
+        <p class="cover-sub">A primeira Copa asiática — e o pentacampeonato verde-amarelo</p>
+        <div class="cover-stats">
+          <div class="cstat"><div class="cstat-num">32</div><div class="cstat-label">Seleções</div></div>
+          <div class="cstat"><div class="cstat-num">64</div><div class="cstat-label">Jogos</div></div>
+          <div class="cstat"><div class="cstat-num">161</div><div class="cstat-label">Gols</div></div>
+          <div class="cstat"><div class="cstat-num">2,7M</div><div class="cstat-label">Espectadores</div></div>
+        </div>
+      </div>
+      <div class="cover-globe"><span>⚽</span></div>
+    </div>
+  </div>
+
+  <!-- 2: FINAL -->
+  <div class="slide" id="slide-2">
+    <div class="slide-inner">
+      <p class="slide-eyebrow">O Grande Desfecho</p>
+      <h2 class="slide-title">A Final</h2>
+
+      <div class="final-card">
+        <div style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;">30 de junho de 2002 · Yokohama, Japão</div>
+        <div class="final-teams">
+          <div class="team-block">
+            <div class="team-flag">🇧🇷</div>
+            <div class="team-name">Brasil</div>
+            <div class="team-role">Pentacampeão</div>
+          </div>
+          <div class="score-block">
+            <div class="score-num">2–0</div>
+            <div class="score-sub">Estádio Internacional de Yokohama</div>
+          </div>
+          <div class="team-block">
+            <div class="team-flag">🇩🇪</div>
+            <div class="team-name">Alemanha</div>
+            <div class="team-role">Vice-campeã</div>
+          </div>
+        </div>
+        <div class="goal-times">
+          <span class="goal-badge">⚽ Ronaldo 67'</span>
+          <span class="goal-badge">⚽ Ronaldo 79'</span>
+        </div>
+        <div style="margin-top:1rem;font-family:'DM Serif Display',serif;font-style:italic;font-size:0.9rem;color:var(--muted);">Ronaldo marcou os dois gols da decisão e sagrou-se artilheiro com 8 gols no torneio</div>
+      </div>
+
+      <div class="podium-grid">
+        <div class="podium-card gold">
+          <div class="place-num">1º</div>
+          <div class="podium-flag">🇧🇷</div>
+          <div class="podium-name">Brasil</div>
+          <div class="podium-detail">5º título mundial<br>18 gols · saldo +14</div>
+        </div>
+        <div class="podium-card silver">
+          <div class="place-num">2º</div>
+          <div class="podium-flag">🇩🇪</div>
+          <div class="podium-name">Alemanha</div>
+          <div class="podium-detail">Bola de Ouro: Oliver Kahn<br>14 gols · saldo +11</div>
+        </div>
+        <div class="podium-card bronze">
+          <div class="place-num">3º</div>
+          <div class="podium-flag">🇹🇷</div>
+          <div class="podium-name">Turquia</div>
+          <div class="podium-detail">3–2 sobre Coreia do Sul<br>12 gols · saldo +4</div>
+        </div>
+        <div class="podium-card" style="border-color:rgba(255,255,255,0.1);">
+          <div class="place-num" style="color:#888;">4º</div>
+          <div class="podium-flag">🇰🇷</div>
+          <div class="podium-name">Coreia do Sul</div>
+          <div class="podium-detail">Melhor resultado asiático<br>11 gols · saldo +4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3: ARTILHEIROS -->
+  <div class="slide" id="slide-3">
+    <div class="slide-inner">
+      <p class="slide-eyebrow">Goleadores do Torneio</p>
+      <h2 class="slide-title">Top Artilheiros</h2>
+
+      <div class="scorer-list" id="scorer-list">
+        <div class="scorer-row top">
+          <div class="scorer-rank">1</div>
+          <div class="scorer-flag">🇧🇷</div>
+          <div><div class="scorer-name">Ronaldo Nazário</div><div class="scorer-country">Brasil</div></div>
+          <div class="scorer-bar-wrap">
+            <div class="scorer-bar-bg"><div class="scorer-bar" data-w="100"></div></div>
+            <div class="scorer-goals">8</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank">2</div>
+          <div class="scorer-flag">🇧🇷</div>
+          <div><div class="scorer-name">Rivaldo</div><div class="scorer-country">Brasil</div></div>
+          <div class="scorer-bar-wrap">
+            <div class="scorer-bar-bg"><div class="scorer-bar" data-w="62.5"></div></div>
+            <div class="scorer-goals">5</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank">2</div>
+          <div class="scorer-flag">🇩🇪</div>
+          <div><div class="scorer-name">Miroslav Klose</div><div class="scorer-country">Alemanha</div></div>
+          <div class="scorer-bar-wrap">
+            <div class="scorer-bar-bg"><div class="scorer-bar" data-w="62.5"></div></div>
+            <div class="scorer-goals">5</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank">4</div>
+          <div class="scorer-flag">🇩🇰</div>
+          <div><div class="scorer-name">Jon Dahl Tomasson</div><div class="scorer-country">Dinamarca</div></div>
+          <div class="scorer-bar-wrap">
+            <div class="scorer-bar-bg"><div class="scorer-bar" data-w="50"></div></div>
+            <div class="scorer-goals">4</div>
+          </div>
+        </div>
+        <div class="scorer-row">
+          <div class="scorer-rank">4</div>
+          <div class="scorer-flag">🇮🇹</div>
+          <div><div class="scorer-name">Christian Vieri</div><div class="scorer-country">Itália</div></div>
+          <div class="scorer-bar-wrap">
+            <div class="scorer-bar-bg"><div class="scorer-bar" data-w="50"></div></div>
+            <div class="scorer-goals">4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4: CAMINHO DOS FINALISTAS -->
+  <div class="slide" id="slide-4">
+    <div class="slide-inner" style="max-width:900px;">
+      <p class="slide-eyebrow">Mata-mata · Semifinais até a Final</p>
+      <h2 class="slide-title">O Caminho dos Finalistas</h2>
+
+      <div class="bracket">
+        <div class="bracket-round">
+          <div class="bracket-round-label">Semifinais</div>
+          <div class="bracket-match">
+            <div class="bracket-team winner"><span class="bt-name">🇩🇪 Alemanha</span><span class="bt-score">1</span></div>
+            <div class="bracket-team loser"><span class="bt-name">🇰🇷 Coreia do Sul</span><span class="bt-score">0</span></div>
+          </div>
+          <div style="height:1.5rem;"></div>
+          <div class="bracket-match">
+            <div class="bracket-team winner"><span class="bt-name">🇧🇷 Brasil</span><span class="bt-score">1</span></div>
+            <div class="bracket-team loser"><span class="bt-name">🇹🇷 Turquia</span><span class="bt-score">0</span></div>
+          </div>
+        </div>
+        <div class="bracket-connector">→</div>
+        <div class="bracket-round final-match">
+          <div class="bracket-round-label">Final · Yokohama</div>
+          <div class="bracket-match" style="margin-top:2.5rem;">
+            <div class="bracket-team winner"><span class="bt-name">🇧🇷 Brasil</span><span class="bt-score" style="color:var(--gold-light)">2</span></div>
+            <div class="bracket-team loser"><span class="bt-name">🇩🇪 Alemanha</span><span class="bt-score">0</span></div>
+          </div>
+          <div style="text-align:center;font-size:0.68rem;color:var(--gold);margin-top:0.75rem;letter-spacing:0.1em;">PENTACAMPEÃO ★★★★★</div>
+        </div>
+        <div class="bracket-connector">←</div>
+        <div class="bracket-round">
+          <div class="bracket-round-label">3º Lugar · Daegu</div>
+          <div class="bracket-match">
+            <div class="bracket-team loser"><span class="bt-name">🇰🇷 Coreia do Sul</span><span class="bt-score">2</span></div>
+            <div class="bracket-team winner"><span class="bt-name">🇹🇷 Turquia</span><span class="bt-score">3</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table class="knockout-table">
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Jogo</th>
+            <th style="text-align:right;">Placar</th>
+          </tr>
+        </thead>
+        <tbody id="knockout-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5: GRUPOS -->
+  <div class="slide" id="slide-5">
+    <div class="slide-inner">
+      <p class="slide-eyebrow">Fase de Grupos</p>
+      <h2 class="slide-title">Os 8 Grupos</h2>
+      <p style="color:var(--muted);font-size:0.82rem;margin-bottom:1rem;">Borda verde = classificados para as oitavas de final.</p>
+
+      <div class="groups-filter" id="conf-filter">
+        <button class="filter-btn active" data-conf="all">Todos</button>
+        <button class="filter-btn" data-conf="UEFA">UEFA</button>
+        <button class="filter-btn" data-conf="CONMEBOL">CONMEBOL</button>
+        <button class="filter-btn" data-conf="AFC">AFC</button>
+        <button class="filter-btn" data-conf="CONCACAF">CONCACAF</button>
+        <button class="filter-btn" data-conf="CAF">CAF</button>
+      </div>
+
+      <div class="groups-grid" id="groups-grid"></div>
+    </div>
+  </div>
+
+  <!-- 6: NÚMEROS -->
+  <div class="slide" id="slide-6">
+    <div class="slide-inner">
+      <p class="slide-eyebrow">Estatísticas</p>
+      <h2 class="slide-title">Os Números do Torneio</h2>
+
+      <div class="stats-mosaic">
+        <div class="stat-tile stat-big">
+          <div class="stat-tile-icon">⚽</div>
+          <div class="stat-tile-num">8</div>
+          <div class="stat-tile-unit">gols de Ronaldo</div>
+          <div class="stat-tile-label">Chuteira de Ouro</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-icon">🏟️</div>
+          <div class="stat-tile-num">20</div>
+          <div class="stat-tile-label">Estádios</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-icon">📊</div>
+          <div class="stat-tile-num">2,51</div>
+          <div class="stat-tile-unit">por partida</div>
+          <div class="stat-tile-label">Média de gols</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-icon">💥</div>
+          <div class="stat-tile-num">8–0</div>
+          <div class="stat-tile-unit">Alemanha × Arábia Saudita</div>
+          <div class="stat-tile-label">Maior goleada</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-icon">👥</div>
+          <div class="stat-tile-num">2,7M</div>
+          <div class="stat-tile-unit">espectadores</div>
+          <div class="stat-tile-label">Público total (recorde)</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-icon">🎯</div>
+          <div class="stat-tile-num">6</div>
+          <div class="stat-tile-label">Hat-tricks no torneio</div>
+        </div>
+        <div class="stat-tile">
+          <div class="stat-tile-icon">📅</div>
+          <div class="stat-tile-num">31</div>
+          <div class="stat-tile-unit">maio – 30 junho</div>
+          <div class="stat-tile-label">Período</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7: CURIOSIDADES -->
+  <div class="slide" id="slide-7">
+    <div class="slide-inner">
+      <p class="slide-eyebrow">Você Sabia?</p>
+      <h2 class="slide-title">Curiosidades</h2>
+
+      <div class="facts-grid">
+        <div class="fact-card">
+          <div class="fact-icon">🌏</div>
+          <div>
+            <div class="fact-title">Primeira vez na Ásia</div>
+            <div class="fact-text">Primeiro Mundial fora da Europa e das Américas. Também a estreia de duas nações co-sediando o evento.</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🇰🇷</div>
+          <div>
+            <div class="fact-title">Coreia do Sul nas semis</div>
+            <div class="fact-text">O anfitrião eliminou Polônia, Portugal, Itália e Espanha, chegando às semifinais — resultado histórico e polêmico.</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🇫🇷</div>
+          <div>
+            <div class="fact-title">Campeã eliminada na fase de grupos</div>
+            <div class="fact-text">A França (campeã 1998) não venceu nenhum jogo e saiu na primeira fase, sem marcar um único gol.</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🥅</div>
+          <div>
+            <div class="fact-title">Ronaldo quebra recorde</div>
+            <div class="fact-text">Com 15 gols em Copas, Ronaldo tornou-se o maior artilheiro brasileiro na história dos Mundiais.</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">🏆</div>
+          <div>
+            <div class="fact-title">Bola de Ouro inesperada</div>
+            <div class="fact-text">Oliver Kahn (goleiro alemão) recebeu a Bola de Ouro — único goleiro a ganhar o prêmio na história das Copas.</div>
+          </div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-icon">⚡</div>
+          <div>
+            <div class="fact-title">Sem VAR em 2002</div>
+            <div class="fact-text">Sem árbitro de vídeo, certas decisões polêmicas moldaram para sempre o torneio — o VAR só chegaria em 2018.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8: ENCERRAMENTO -->
+  <div class="slide" id="slide-8">
+    <div>
+      <div class="closing-stars">★★★★★</div>
+      <h2 class="closing-title">Penta<br><span>Campeão</span></h2>
+      <p class="closing-sub">O Brasil, de Ronaldo, Rivaldo e Ronaldinho, escreveu história no Extremo Oriente</p>
+      <div class="closing-trivia">
+        <div class="ct-item"><div class="ct-num">5</div><div class="ct-label">Títulos mundiais</div></div>
+        <div class="ct-item"><div class="ct-num">8</div><div class="ct-label">Gols de Ronaldo</div></div>
+        <div class="ct-item"><div class="ct-num">7</div><div class="ct-label">Jogos · 7 vitórias</div></div>
+        <div class="ct-item"><div class="ct-num">18</div><div class="ct-label">Gols marcados</div></div>
+        <div class="ct-item"><div class="ct-num">4</div><div class="ct-label">Gols sofridos</div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /slides -->
+
+<!-- NAV BAR -->
+<nav class="nav-bar">
+  <button class="nav-btn" id="btn-prev" disabled>←</button>
+  <div class="nav-dots" id="nav-dots"></div>
+  <span class="nav-counter" id="nav-counter">1 / 8</span>
+  <button class="nav-btn" id="btn-next">→</button>
+</nav>
+
+<script>
+const SLIDES_DATA = [
+  { id: 'slide-1', name: 'Abertura' },
+  { id: 'slide-2', name: 'A Final' },
+  { id: 'slide-3', name: 'Artilheiros' },
+  { id: 'slide-4', name: 'Mata-mata' },
+  { id: 'slide-5', name: 'Grupos' },
+  { id: 'slide-6', name: 'Números' },
+  { id: 'slide-7', name: 'Curiosidades' },
+  { id: 'slide-8', name: 'Encerramento' },
+];
+
+const TOTAL = SLIDES_DATA.length;
+let current = 0;
+let animating = false;
+
+const slides = SLIDES_DATA.map(s => document.getElementById(s.id));
+const dotsContainer = document.getElementById('nav-dots');
+const counter = document.getElementById('nav-counter');
+const btnPrev = document.getElementById('btn-prev');
+const btnNext = document.getElementById('btn-next');
+const progressBar = document.getElementById('progress-bar');
+const sectionName = document.getElementById('section-name');
+
+// Build dots
+SLIDES_DATA.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.addEventListener('click', () => goTo(i));
+  dotsContainer.appendChild(d);
+});
+
+function updateUI() {
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  counter.textContent = `${current + 1} / ${TOTAL}`;
+  btnPrev.disabled = current === 0;
+  btnNext.disabled = current === TOTAL - 1;
+  progressBar.style.width = `${((current + 1) / TOTAL) * 100}%`;
+  sectionName.textContent = SLIDES_DATA[current].name;
+}
+
+function goTo(index) {
+  if (animating || index === current || index < 0 || index >= TOTAL) return;
+  animating = true;
+
+  const oldSlide = slides[current];
+  const newSlide = slides[index];
+
+  oldSlide.classList.add('exit-up');
+  newSlide.style.display = '';
+
+  setTimeout(() => {
+    oldSlide.classList.remove('active', 'exit-up');
+    newSlide.classList.add('active');
+    current = index;
+    updateUI();
+
+    // Trigger animations on active slide
+    if (current === 2) animateBars();
+
+    animating = false;
+  }, 400);
+}
+
+function animateBars() {
+  document.querySelectorAll('.scorer-bar').forEach(bar => {
+    bar.style.width = '0%';
+    setTimeout(() => { bar.style.width = bar.dataset.w + '%'; }, 150);
+  });
+}
+
+btnPrev.addEventListener('click', () => goTo(current - 1));
+btnNext.addEventListener('click', () => goTo(current + 1));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+    else document.exitFullscreen().catch(() => {});
+  }
+});
+
+// Touch swipe
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+});
+
+// Groups data
+const groups = [
+  { letter: 'A', teams: [{ name: 'Dinamarca', flag: '🇩🇰', conf: 'UEFA', q: true }, { name: 'Senegal', flag: '🇸🇳', conf: 'CAF', q: true }, { name: 'Uruguai', flag: '🇺🇾', conf: 'CONMEBOL', q: false }, { name: 'França', flag: '🇫🇷', conf: 'UEFA', q: false }]},
+  { letter: 'B', teams: [{ name: 'Espanha', flag: '🇪🇸', conf: 'UEFA', q: true }, { name: 'Paraguai', flag: '🇵🇾', conf: 'CONMEBOL', q: true }, { name: 'África do Sul', flag: '🇿🇦', conf: 'CAF', q: false }, { name: 'Eslovênia', flag: '🇸🇮', conf: 'UEFA', q: false }]},
+  { letter: 'C', teams: [{ name: 'Brasil', flag: '🇧🇷', conf: 'CONMEBOL', q: true }, { name: 'Turquia', flag: '🇹🇷', conf: 'UEFA', q: true }, { name: 'Costa Rica', flag: '🇨🇷', conf: 'CONCACAF', q: false }, { name: 'China', flag: '🇨🇳', conf: 'AFC', q: false }]},
+  { letter: 'D', teams: [{ name: 'Coreia do Sul', flag: '🇰🇷', conf: 'AFC', q: true }, { name: 'Estados Unidos', flag: '🇺🇸', conf: 'CONCACAF', q: true }, { name: 'Portugal', flag: '🇵🇹', conf: 'UEFA', q: false }, { name: 'Polônia', flag: '🇵🇱', conf: 'UEFA', q: false }]},
+  { letter: 'E', teams: [{ name: 'Alemanha', flag: '🇩🇪', conf: 'UEFA', q: true }, { name: 'Irlanda', flag: '🇮🇪', conf: 'UEFA', q: true }, { name: 'Camarões', flag: '🇨🇲', conf: 'CAF', q: false }, { name: 'Arábia Saudita', flag: '🇸🇦', conf: 'AFC', q: false }]},
+  { letter: 'F', teams: [{ name: 'Suécia', flag: '🇸🇪', conf: 'UEFA', q: true }, { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', conf: 'UEFA', q: true }, { name: 'Argentina', flag: '🇦🇷', conf: 'CONMEBOL', q: false }, { name: 'Nigéria', flag: '🇳🇬', conf: 'CAF', q: false }]},
+  { letter: 'G', teams: [{ name: 'México', flag: '🇲🇽', conf: 'CONCACAF', q: true }, { name: 'Itália', flag: '🇮🇹', conf: 'UEFA', q: true }, { name: 'Croácia', flag: '🇭🇷', conf: 'UEFA', q: false }, { name: 'Equador', flag: '🇪🇨', conf: 'CONMEBOL', q: false }]},
+  { letter: 'H', teams: [{ name: 'Japão', flag: '🇯🇵', conf: 'AFC', q: true }, { name: 'Bélgica', flag: '🇧🇪', conf: 'UEFA', q: true }, { name: 'Rússia', flag: '🇷🇺', conf: 'UEFA', q: false }, { name: 'Tunísia', flag: '🇹🇳', conf: 'CAF', q: false }]},
+];
+
+function renderGroups(filter) {
+  const grid = document.getElementById('groups-grid');
+  grid.innerHTML = '';
+  groups.forEach(g => {
+    const filtered = filter === 'all' ? g.teams : g.teams.filter(t => t.conf === filter);
+    if (filtered.length === 0) return;
+    const card = document.createElement('div');
+    card.className = 'group-card';
+    card.innerHTML = `
+      <div class="group-header">
+        <div class="group-letter">Grupo ${g.letter}</div>
+        <div class="group-subtext">${[...new Set(g.teams.map(t=>t.conf))].join(' · ')}</div>
+      </div>
+      <div class="group-teams">
+        ${g.teams.map(t => `
+          <div class="group-team ${t.q?'qualified':''}">
+            <span class="gflag">${t.flag}</span>
+            <span class="gname">${t.name}</span>
+            <span class="gconf">${t.conf}</span>
+          </div>`).join('')}
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('conf-filter').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGroups(btn.dataset.conf);
+});
+
+// Knockout
+const knockout = [
+  { fase: 'Oitavas', jogo: '🇩🇪 Alemanha × Paraguai 🇵🇾', placar: '1–0' },
+  { fase: 'Oitavas', jogo: '🇩🇰 Dinamarca × Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿', placar: '0–3' },
+  { fase: 'Oitavas', jogo: '🇸🇪 Suécia × Senegal 🇸🇳', placar: '1–2 (p.p.)' },
+  { fase: 'Oitavas', jogo: '🇪🇸 Espanha × Irlanda 🇮🇪', placar: '1–1 (3–2 p.)' },
+  { fase: 'Oitavas', jogo: '🇲🇽 México × Estados Unidos 🇺🇸', placar: '0–2' },
+  { fase: 'Oitavas', jogo: '🇧🇷 Brasil × Bélgica 🇧🇪', placar: '2–0' },
+  { fase: 'Oitavas', jogo: '🇯🇵 Japão × Turquia 🇹🇷', placar: '0–1' },
+  { fase: 'Oitavas', jogo: '🇰🇷 Coreia do Sul × Itália 🇮🇹', placar: '2–1 (p.p.)' },
+  { fase: 'Quartas', jogo: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra × Brasil 🇧🇷', placar: '1–2' },
+  { fase: 'Quartas', jogo: '🇩🇪 Alemanha × Estados Unidos 🇺🇸', placar: '1–0' },
+  { fase: 'Quartas', jogo: '🇪🇸 Espanha × Coreia do Sul 🇰🇷', placar: '0–0 (3–5 p.)' },
+  { fase: 'Quartas', jogo: '🇸🇳 Senegal × Turquia 🇹🇷', placar: '0–1 (p.p.)' },
+  { fase: 'Semifinais', jogo: '🇩🇪 Alemanha × Coreia do Sul 🇰🇷', placar: '1–0' },
+  { fase: 'Semifinais', jogo: '🇧🇷 Brasil × Turquia 🇹🇷', placar: '1–0' },
+  { fase: '3º Lugar', jogo: '🇰🇷 Coreia do Sul × Turquia 🇹🇷', placar: '2–3' },
+  { fase: 'Final', jogo: '🇩🇪 Alemanha × Brasil 🇧🇷', placar: '0–2' },
+];
+
+function renderKnockout() {
+  const tbody = document.getElementById('knockout-body');
+  let lastFase = '';
+  knockout.forEach(r => {
+    const tr = document.createElement('tr');
+    const faseLabel = r.fase !== lastFase ? r.fase : '';
+    lastFase = r.fase;
+    tr.innerHTML = `
+      <td class="fase-label">${faseLabel}</td>
+      <td>${r.jogo}</td>
+      <td class="${r.fase==='Final'?'placar-final':'placar-normal'}">${r.placar}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Init
+renderGroups('all');
+renderKnockout();
+updateUI();
+</script>
+</body>
+</html>
